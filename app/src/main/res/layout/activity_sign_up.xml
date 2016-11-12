@@ -19,7 +19,8 @@
         android:id="@+id/textView"
         android:textSize="@dimen/h1"
         android:textStyle="normal|bold"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/atext" />
 
     <Button
         android:text="@string/SignUp"

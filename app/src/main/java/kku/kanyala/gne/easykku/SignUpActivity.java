@@ -103,6 +103,10 @@ public class SignUpActivity extends AppCompatActivity {
             imagePathSring = myFindPath(uri);
             Log.d("12novV1","imagePath ==>"+imagePathSring);
 
+            //Find Name of Image
+            imageNameString = imagePathSring.substring(imagePathSring.lastIndexOf("/"));
+            Log.d("12novV1","imageName ==>"+imageNameString);
+
         } //if
 
 

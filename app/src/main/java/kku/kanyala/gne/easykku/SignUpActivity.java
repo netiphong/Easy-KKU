@@ -17,13 +17,15 @@ import android.widget.ImageView;
 public class SignUpActivity extends AppCompatActivity {
 
     //Explicit
-    private EditText nameEditText,phoneEditText,
+    private EditText nameEditText, phoneEditText,
             userEditText, passwordEditText;
     private ImageView imageView;
     private Button button;
-    private String nameString,phoneString,userString,passwordString,
-    imagePathSring,imageNameString;
+    private String nameString, phoneString, userString, passwordString,
+            imagePathSring, imageNameString;
     private Uri uri;
+    private boolean aBoolean = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,9 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         //Bind Widget
-        nameEditText = (EditText)findViewById(R.id.editText);
-        phoneEditText = (EditText)findViewById(R.id.editText2);
-        userEditText = (EditText)findViewById(R.id.editText3);
+        nameEditText = (EditText) findViewById(R.id.editText);
+        phoneEditText = (EditText) findViewById(R.id.editText2);
+        userEditText = (EditText) findViewById(R.id.editText3);
         passwordEditText = (EditText) findViewById(R.id.editText4);
         imageView = (ImageView) findViewById(R.id.imageView);
         button = (Button) findViewById(R.id.button3);
@@ -51,14 +53,22 @@ public class SignUpActivity extends AppCompatActivity {
                 userString = userEditText.getText().toString().trim();
                 passwordString = passwordEditText.getText().toString().trim();
 
+
                 //Check Space
-                if (nameString.equals("") || phoneString.equals("")||
+                if (nameString.equals("") || phoneString.equals("") ||
                         userString.equals("") || passwordString.equals("")) {
                     //Have Space
-                    Log.d("12novV1","Have Space");
-                    MyAlert myAlert = new MyAlert(SignUpActivity.this,R.drawable.doremon48,
-                            "มีช่องว่าง","กรุณากรอกให้ครบทุกช่อง");
+                    Log.d("12novV1", "Have Space");
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.doremon48,
+                            "มีช่องว่าง", "กรุณากรอกให้ครบทุกช่อง");
                     myAlert.myDialog();
+                } else if (aBoolean) {
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this,R.drawable.nobita48,
+                            "ยังไม่เลือกรูป", "กรุณาเลือกรูป");
+                    myAlert.myDialog();
+                } else {
+                    upLoadImageToServer();
+
                 }
 
 
@@ -72,13 +82,18 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("Image/*");
-                startActivityForResult(Intent.createChooser(intent,"โปรดเลือกแอปดูภาพ"),0);
+                startActivityForResult(Intent.createChooser(intent, "โปรดเลือกแอปดูภาพ"), 0);
 
 
             } // onClick
         });
 
     } // Main Method
+
+    private void upLoadImageToServer(){
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode,
@@ -89,6 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
         if ((requestCode==0) && (resultCode== RESULT_OK)) {
 
             Log.d("12novV1","Result OK");
+            aBoolean = false;
 
             //Show Image
             uri = data.getData();
